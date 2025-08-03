@@ -3,3 +3,7 @@
 
 # Don't ignore .gitignore (this file)
 !/.gitignore
+
+# ignore pyc
+__pycache__/
+*.pyc
