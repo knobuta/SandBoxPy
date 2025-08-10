@@ -66,17 +66,19 @@ news_params = {
 news_response = requests.get(NEWS_ENDPOINT, params=news_params)
 news_response.raise_for_status()
 news_data = news_response.json()
+#top3_news = news_data["articles"][:3] # Using slice
 
+# Using for loop to create the body part of the email
 msg_str = "" # Body of the email
-#for i in range(len(news_data["articles"])):
-for i in range(3): # Only the first 3
+for i in range(3): # Only the first 3.
     print(news_data["articles"][i]["title"])
     headline = news_data["articles"][i]["title"]
     brief = news_data["articles"][i]["description"]
     msg_str += f"Headline: {headline}\nBrief: {brief}\n"
 
-msg_str_utf8 = msg_str.encode("utf-8")
-
+# # Using slice and list comprehension to create the body part of the email.
+# top3_news = news_data["articles"][:3] # Using slice
+# formatted_articles = [f"Headline: {top3_news['title']}. \nBrief: {top3_news['description']}" for news_data["article"] in top3_news]
 
 # -------------------- STEP 3: EMAIL not SMS -------------------- #
 ## STEP 3: Use https://www.twilio.com
