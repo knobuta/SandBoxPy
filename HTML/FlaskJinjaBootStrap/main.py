@@ -1,7 +1,8 @@
 from datetime import date
 
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 import blog
+import notification_manager
 
 app = Flask(__name__)
 
@@ -21,10 +22,21 @@ def about():
     # Route for the about page.
     return render_template("about.html")
 
-@app.route('/contact')
+@app.route('/contact', methods=['GET', 'POST'])
 def contact():
     # Route for the contact page.
-    return render_template("contact.html")
+    if request.method == 'POST':
+        name = request.form['name']
+        email = request.form['email']
+        phone = request.form['phone']
+        msg = request.form['message']
+
+        # mail = notification_manager.NotificationManager(name, email, phone, msg)
+        # mail.send_mail()
+
+        return render_template("contact.html", message="Successfully sent your message")
+    else:
+        return render_template("contact.html")
 
 if __name__ == "__main__":
     """ 
